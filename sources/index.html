@@ -26,7 +26,7 @@ function convertImgToBase64(ida, url){
         log2+='ctx ok ='+ctx+'<br>';
         var img = new Image;
         log2+='creation img ok='+img+'<br>';
-        img.crossOrigin = '';
+//        img.crossOrigin = '';
         img.onload = function(){
                 log2+='img loaded ('+ida+' url='+url+')br>';
                 canvas.height = img.height;

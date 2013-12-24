@@ -17,6 +17,12 @@ var chapo1=[];
 var imgnom1=[];
 var log2='';
 localStorage.clear();
+function supportsToDataURL(){
+	var c = document.createElement("canvas");
+	var data = c.toDataURL("image/png");
+	return (data.indexOf("data:image/png") == 0);
+}
+alert('dataul='+supportsToDataURL());
 function convertImgToBase64(ida, url){
         log2+='entree convert ida='+ida+' url='+url+'<br>';
         var canvas = document.createElement('CANVAS');

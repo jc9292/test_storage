@@ -28,8 +28,8 @@ function convertImgToBase64(ida, url){
         log2+='creation img ok='+img+'<br>';
 //        img.crossOrigin = '';
         img.addEventListener("load",function() {
-                alert('load');
-                log2+='img loaded ('+ida+' url='+url+')<br>';
+                alert('load'+ida);
+                log2+='img loaded='+ida+' url='+url+'<br>';
                 canvas.height = img.height;
                 canvas.width = img.width;
                 ctx.drawImage(img,0,0);

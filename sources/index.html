@@ -19,9 +19,9 @@ var log2='';
 localStorage.clear();
 function supportsToDataURL(){
 	var c = document.createElement("canvas");
-	var data = c.toDataURL("image/png");
+	var data = c.toDataURL(""image/jpeg);
 	alert('data='+data);
-	return (data.indexOf("data:image/png") == 0);
+	return (data.indexOf("data:image/jpeg") == 0);
 }
 alert('dataul='+supportsToDataURL());
 function convertImgToBase64(ida, url){
@@ -41,7 +41,7 @@ function convertImgToBase64(ida, url){
                 $('#log3').html('canvas width='+img.width);
                 ctx.drawImage(img,0,0);
                 alert('ctx='+ctx)
-                var dat1=canvas.toDataURL();
+                var dat1=canvas.toDataURL("image/jpeg");
                 alert('dat1='+dat1);
                 log2+='donnees ok'+dat1+'<br>';
                 $('#log3').html('data img='+dat1);

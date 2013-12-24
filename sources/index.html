@@ -19,7 +19,7 @@ var log2='';
 localStorage.clear();
 function supportsToDataURL(){
 	var c = document.createElement("canvas");
-	var data = c.toDataURL("image/jpeg"");
+	var data = c.toDataURL("image/jpeg");
 	alert('data='+data);
 	return (data.indexOf("data:image/jpeg") == 0);
 }

@@ -27,7 +27,8 @@ function convertImgToBase64(ida, url){
         var img = new Image;
         log2+='creation img ok='+img+'<br>';
 //        img.crossOrigin = '';
-        img.onload = function(){
+        img.addEventListener("load",function() {
+                alert('load');
                 log2+='img loaded ('+ida+' url='+url+')br>';
                 canvas.height = img.height;
                 canvas.width = img.width;
@@ -38,7 +39,7 @@ function convertImgToBase64(ida, url){
                 // $('#part'+ida).attr("src",dat1);
                 canvas = null;
                 img = null;
-        };
+        });
         img.src=url;
         log2+='img src='+img.src+'<br>';
 }

@@ -19,9 +19,13 @@ var imgnom1=[];
 var imgdat1=[];
 var log2='';
 function convertImgToBase64(ida, url){
+        log2+='entree convert ida='+ida+' url='+url+'<br>';
         var canvas = document.createElement('CANVAS');
+        log2+='creation canva ok:'+canvas+'<br>';
         var ctx = canvas.getContext('2d');
+        log2+='ctx ok ='+ctx+'<br>';
         var img = new Image;
+        log2+='creation img ok='+img+'<br>';
         img.crossOrigin = '';
         img.onload = function(){
                 log2+='img loaded ('+ida+' url='+url+')br>';
@@ -36,6 +40,7 @@ function convertImgToBase64(ida, url){
                 img = null;
         };
         img.src=url;
+        log2+='img src='+img.src+'<br>';
 }
 $.ajax({
         url: "http://m.maxifoot.fr/json_all.php",

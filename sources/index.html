@@ -20,49 +20,47 @@ localStorage.clear();
 function supportsToDataURL(){
 	var c = document.createElement("canvas");
 	var data = c.toDataURL("image/jpeg");
-	alert('data='+data);
 	return (data.indexOf("data:image/jpeg") == 0);
 }
-alert('dataul='+supportsToDataURL());
-function convertImgToBase64(ida, url){
-        log2+='entree convert ida='+ida+' url='+url+'<br>';
-        var canvas = document.createElement('CANVAS');
-        log2+='creation canva ok:'+canvas+'<br>';
-        var ctx = canvas.getContext('2d');
-        log2+='ctx ok ='+ctx+'<br>';
-        var img = new Image;
-        log2+='creation img ok='+img+'<br>';
-        img.crossOrigin = '';
-        img.addEventListener("load",function() {
-                log2+='img loaded='+ida+' url='+url+'<br>';
-                alert("load");
-                canvas.height = img.height;
-                canvas.width = img.width;
-                $('#log3').html('canvas width='+img.width);
-                ctx.drawImage(img,0,0);
-                alert('ctx='+ctx)
-                var dat1=canvas.toDataURL("image/jpeg");
-                alert('dat1='+dat1);
-                log2+='donnees ok'+dat1+'<br>';
-                $('#log3').html('data img='+dat1);
-                localStorage.setItem('part'+ida, dat1);
-                alert(dat1);
-                $('#part'+ida).html('<img src="'+dat1+'">');
-                canvas = null;
-                // img = null;
-        });
-        img.src=url;
-        log2+='img src='+img.src+'<br>';
+var iscacheimg=supportsToDataURL();
+
+function convertImgToBase64(ida, pho1){
+	if (iscacheimg) {
+        	var canvas = document.createElement('CANVAS');
+        	var ctx = canvas.getContext('2d');
+        	var img = new Image;
+        	img.crossOrigin = '';
+        	img.addEventListener("load",function() {
+                	canvas.height = img.height;
+                	canvas.width = img.width;
+                	ctx.drawImage(img,0,0);
+                	var dat1=canvas.toDataURL("image/jpeg");
+	                localStorage.setItem('part'+ida, dat1);
+			$('#part'+ida).html('<img src="'+dat1+'">');
+                	canvas = null;
+                	img = null;
+        	});
+		img.src='http://photo.maxifoot.fr/'+pho1+'1.jpg'
+	} else { // 'http://photo.maxifoot.fr/'+c1[i][3]+'1.jpg');
+		var url2
+		$.ajax({
+			url: 'http://photo.maxifoot.fr/getbase64.php?pho='+pho1+'1.jpg';
+			crossDomain: true,
+			dataType: 'text',
+			success: function( data ) {
+				localStorage.setItem('part'+ida, data);
+				$('#part'+ida).html('<img src="'+data+'">');
+			}
+		});
+	}
 }
 $.ajax({
         url: "http://m.maxifoot.fr/json_all.php",
         crossDomain: true,
         dataType: 'json',
         success: function( data ) {
-                console.log(data);
                 var c1=data[0][0];
                 var txt2='';
-                var log1='';
                 for (var i=14, l1=c1.length; i<l1; i++ ) {
                         var ida=c1[i][0];
                         if ((typeof ida)=='undefined') { continue; }
@@ -74,13 +72,10 @@ $.ajax({
                         var ida=c1[i][0];
                         if ((typeof ida)=='undefined') { continue; }
                         var imgdat1=localStorage.getItem('partu'+ida);
-                        log1+='i='+i+' ida='+ida+' '+'<br>';
                         if (imgdat1==null) {
                                 convertImgToBase64(ida,'http://photo.maxifoot.fr/'+c1[i][3]+'1.jpg');
                         }
                 }
-                $('#log1').html(log1);
-                $('#log2').html(log2);
         }
 });
 </script>

@@ -35,7 +35,7 @@ function convertImgToBase64(ida, pho1){
                 	canvas.width = img.width;
                 	ctx.drawImage(img,0,0);
 //                	var dat1=canvas.toDataURL("image/jpeg");
-			var pixelData = canvas.getImageData(0,0,1,1);
+			var pixelData = ctx.getImageData(0,0,1,1);
 alert(pixelData);
 	                localStorage.setItem('part'+ida, dat1);
 			$('#part'+ida).html('<img src="'+dat1+'">');

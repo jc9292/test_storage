@@ -33,7 +33,9 @@ function convertImgToBase64(ida, url){
                 canvas.width = img.width;
                 $('#log3').html('canvas width='+img.width);
                 ctx.drawImage(img,0,0);
+                alert('ctx='+ctx)
                 var dat1=canvas.toDataURL();
+                alert('dat1='+dat1);
                 log2+='donnees ok'+dat1+'<br>';
                 $('#log3').html('data img='+dat1);
                 localStorage.setItem('part'+ida, dat1);

@@ -74,7 +74,7 @@ $.ajax({
                         if ((typeof ida)=='undefined') { continue; }
                         var imgdat1=localStorage.getItem('partu'+ida);
                         if (imgdat1==null) {
-                                convertImgToBase64(ida,'http://photo.maxifoot.fr/'+c1[i][3]+'1.jpg');
+                                convertImgToBase64(ida,c1[i][3]);
                         }
                 }
         }

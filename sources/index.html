@@ -39,11 +39,12 @@ $.ajax({
         dataType: 'json',
         success: function( data ) {
                 console.log(data);
-                var c1=data;
+                var c1=data[0][0];
                 var txt2='';
                 var log1='';
                 for (var i=12, l1=c1.length; i<l1; i++ ) {
                         var ida=c1[i][0];
+                        if ((typeof ida)=='undefined') { continue; }
                         var txt0='<img width=135 height=90 id=part'+ida+' src="">';
                         imgdat1[ida]=localStorage.getItem('part'+ida);
                         log1+='+i+' ida='+ida+' '+imgdat1[ida]+'<br>';

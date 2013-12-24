@@ -28,6 +28,7 @@ function convertImgToBase64(ida, url){
         img.crossOrigin = '';
         img.addEventListener("load",function() {
                 log2+='img loaded='+ida+' url='+url+'<br>';
+                alert("load");
                 canvas.height = img.height;
                 canvas.width = img.width;
                 $('#log3').html('canvas width='+img.width);

@@ -20,6 +20,7 @@ localStorage.clear();
 function supportsToDataURL(){
 	var c = document.createElement("canvas");
 	var data = c.toDataURL("image/png");
+	alert('data='+data);
 	return (data.indexOf("data:image/png") == 0);
 }
 alert('dataul='+supportsToDataURL());
@@ -62,14 +63,14 @@ $.ajax({
                 var c1=data[0][0];
                 var txt2='';
                 var log1='';
-                for (var i=12, l1=c1.length; i<l1; i++ ) {
+                for (var i=15, l1=c1.length; i<l1; i++ ) {
                         var ida=c1[i][0];
                         if ((typeof ida)=='undefined') { continue; }
                         var txt0='<div id=part'+ida+'>photo'+ida+'</div>';
                         txt2+=txt0;
                 }
                 $('#alaune2').html(txt2);
-                for (var i=12, l1=c1.length; i<l1; i++ ) {
+                for (var i=15, l1=c1.length; i<l1; i++ ) {
                         var ida=c1[i][0];
                         if ((typeof ida)=='undefined') { continue; }
                         var imgdat1=localStorage.getItem('partu'+ida);

@@ -12,13 +12,11 @@
 <div id=log2></div>
 <div id=log3></div>
 <script type="text/javascript">
-localStorage.setItem('toto', 'ca marche');
-alert(localStorage.getItem('toto'));
 var titres1=new Array();
 var chapo1=[];
 var imgnom1=[];
-var imgdat1=[];
 var log2='';
+localStorage.clear();
 function convertImgToBase64(ida, url){
         log2+='entree convert ida='+ida+' url='+url+'<br>';
         var canvas = document.createElement('CANVAS');
@@ -27,20 +25,18 @@ function convertImgToBase64(ida, url){
         log2+='ctx ok ='+ctx+'<br>';
         var img = new Image;
         log2+='creation img ok='+img+'<br>';
-//        img.crossOrigin = '';
+        img.crossOrigin = '';
         img.addEventListener("load",function() {
                 log2+='img loaded='+ida+' url='+url+'<br>';
                 canvas.height = img.height;
                 canvas.width = img.width;
-                alert('canvas width='+img.width);
                 $('#log3').html('canvas width='+img.width);
                 ctx.drawImage(img,0,0);
                 var dat1=canvas.toDataURL();
                 log2+='donnees ok'+dat1+'<br>';
                 $('#log3').html('data img='+dat1);
-                imgdat1[ida]=dat1;
                 localStorage.setItem('part'+ida, dat1);
-                // $('#part'+ida).attr("src",dat1);
+                $('#part'+ida).html('<img src="'+dat1+'">');
                 canvas = null;
                 img = null;
         });
@@ -59,24 +55,20 @@ $.ajax({
                 for (var i=12, l1=c1.length; i<l1; i++ ) {
                         var ida=c1[i][0];
                         if ((typeof ida)=='undefined') { continue; }
-                        var txt0='<img width=135 height=90 id=part'+ida+' src="">';
-                        imgdat1[ida]=localStorage.getItem('partu'+ida);
-                        log1+='i='+i+' ida='+ida+' '+imgdat1[ida]+'<br>';
-                        if (imgdat1[ida]==null) {
-                                var imgdat1[ida]='';
-                                convertImgToBase64(ida,'http://photo.maxifoot.fr/'+c1[i][3]+'1.jpg');
-                        }
-                        titres1[ida]=c1[i][1];
-                        chapo1[ida]=c1[i][2];
-                        imgnom1[ida]=c1[i][3];
+                        var txt0='<div id=part'+ida+'></div>';
                         txt2+=txt0;
                 }
-                $('#log1').html(log1);
                 $('#alaune2').html(txt2);
-                for (key in imgdat1) {
-                        log2+='img'+key+'='+imgdat1[key]+'<br>';
-                        $('#part'+key).attr("src",imgdat1[key]);
+                for (var i=12, l1=c1.length; i<l1; i++ ) {
+                        var ida=c1[i][0];
+                        if ((typeof ida)=='undefined') { continue; }
+                        var imgdat1=localStorage.getItem('partu'+ida);
+                        log1+='i='+i+' ida='+ida+' '+'<br>';
+                        if (imgdat1==null) {
+                                convertImgToBase64(ida,'http://photo.maxifoot.fr/'+c1[i][3]+'1.jpg');
+                        }
                 }
+                $('#log1').html(log1);
                 $('#log2').html(log2);
         }
 });

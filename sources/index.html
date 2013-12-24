@@ -1,0 +1,59 @@
+<div id=alaune2></div>
+<div id=log1></div>
+<div id=log2></div>
+<script type="text/javascript">
+var titres1=new Array();
+var chapo1=[];
+var imgnom1=[];
+var imgdat1=[];
+function convertImgToBase64(ida, url){
+        var canvas = document.createElement('CANVAS');
+        var ctx = canvas.getContext('2d');
+        var img = new Image;
+        img.crossOrigin = '';
+        img.onload = function(){
+                canvas.height = img.height;
+                canvas.width = img.width;
+                ctx.drawImage(img,0,0);
+                var dat1=canvas.toDataURL();
+                imgdat1[ida]=dat1;
+                localStorage.setItem('part'+ida, dat1);
+                $('#part'+ida).attr("src",dat1);
+                canvas = null;
+                img = null;
+        };
+        img.src=url;
+}
+$.ajax({
+        url: "http://m.maxifoot.fr/json_all.php",
+        crossDomain: true,
+        dataType: 'json',
+        success: function( data ) {
+                console.log(data);
+                var c1=data;
+                var txt2='';
+                var log1='';
+                for (var i=12, l1=c1.length; i<l1; i++ ) {
+                        var ida=c1[i][0];
+                        var txt0='<img width=135 height=90 id=part'+ida+' src="">';
+                        imgdat1[ida]=localStorage.getItem('part'+ida);
+                        log1+='+i+' ida='+ida+' '+imgdat1[ida]+'<br>';
+                        if (imgdat1[ida]==null) {
+                                convertImgToBase64(ida,'http://photo.maxifoot.fr/'+c1[i][3]+'1.jpg');
+                        }
+                        titres1[ida]=c1[i][1];
+                        chapo1[ida]=c1[i][2];
+                        imgnom1[ida]=c1[i][3];
+                        txt2+=txt0;
+                }
+                $('#log1').html(log1);
+                $('#alaune2').html(txt2);
+                var log2='';
+                for (key in imgdat1) {
+                        log2+='img'+key+'='+imgdat1[key]+'<br>';
+                        $('#part'+key).attr("src",imgdat1[key]);
+                }
+                $('#log2').html(log2);
+        }
+});
+</script>
